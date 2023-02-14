@@ -1,0 +1,106 @@
+body {
+    background-color: #839cb4;
+    padding-left: 5em;
+    padding-right: 5em;
+}
+
+section>div {
+    margin: auto;
+    width: 70%;
+    background-color: #c5d9eb;
+    padding: 1.5em;
+}
+
+input {
+    border-style: outset;
+    font-size: 1.5em;
+}
+table {
+    width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+table td {
+    border: 4px ridge;
+    padding: 10px;
+}
+
+table td:nth-child(odd) {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background: #CCC
+}
+
+table tr:nth-child(odd) {
+    background: #909090
+}
+
+nav {
+    height: 3em;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0px 10px;
+    text-transform: uppercase;
+}
+
+nav .item {
+    padding: 0px 10px;
+    font-size: 1.5em;
+}
+nav .item:nth-child(2) {
+    margin-left: auto;
+}
+nav .title {
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.grid path {
+    stroke: rgb(0, 0, 0);
+    stroke-width: 6;
+    fill: none;
+    stroke-dasharray: 8px;
+    stroke-dashoffset: 16px;
+    animation: stroke 0.5s linear infinite;
+}
+
+.grid path.offline {
+    stroke: rgb(74, 74, 74);
+    stroke-width: 6;
+    fill: none;
+    animation: none;
+    stroke-dasharray: none;
+}
+
+@keyframes stroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+}
+
+.grid .node.offline {
+    stroke: black;
+    stroke-width: 3px;
+    fill: #7a1a11;
+}
+
+.grid .node {
+    stroke: black;
+    stroke-width: 3px;
+    fill: green;
+}
+
+.flash {
+    width: 80%;
+    background-color: #7a1a11;
+    padding: 1em;
+    text-align: center;
+    color: #fff;
+    font-size: 3em;
+}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block header %}
+  <h1>Power grid status board </h1>
+{% endblock %}
+
+{% block content %}
+<svg class="grid" width="100%" viewBox="0 0 600 350" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+  <path class="edge {% if not grid.grid_1 %}offline{% endif %}" d="M300 150v100h50v50h150v-50h50v-100h-100v-100h-100v50h-50v50"/>
+  <path class="edge {% if not grid.grid_0 %}offline{% endif %}" d="M250 150v100h-150v-50h-50v-100h200v50"/>
+  <path class="edge tube {% if not grid.grid_0 %}offline{% endif %}" d="M250 150v100h-150v-50h-50v-100h200v50"/>
+  <rect class="node {% if not grid.core %}offline{% endif %}" x=225.0 y=150 width=100 height=50></rect>
+  <a xlink:href="/api/toggle?id=node_0_0"><circle class="node {% if not grid['node_0_0'] %}offline{% endif %}" id=node_0_0 cx=50 cy=100 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_0_1"><circle class="node {% if not grid['node_0_1'] %}offline{% endif %}" id=node_0_1 cx=50 cy=200 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_0_2"><circle class="node {% if not grid['node_0_2'] %}offline{% endif %}" id=node_0_2 cx=100 cy=200 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_0_3"><circle class="node {% if not grid['node_0_3'] %}offline{% endif %}" id=node_0_3 cx=100 cy=250 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_0"><circle class="node {% if not grid['node_1_0'] %}offline{% endif %}" id=node_1_0 cx=350 cy=100 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_1"><circle class="node {% if not grid['node_1_1'] %}offline{% endif %}" id=node_1_1 cx=350 cy=50 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_2"><circle class="node {% if not grid['node_1_2'] %}offline{% endif %}" id=node_1_2 cx=450 cy=50 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_3"><circle class="node {% if not grid['node_1_3'] %}offline{% endif %}" id=node_1_3 cx=450 cy=150 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_4"><circle class="node {% if not grid['node_1_4'] %}offline{% endif %}" id=node_1_4 cx=550 cy=150 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_5"><circle class="node {% if not grid['node_1_5'] %}offline{% endif %}" id=node_1_5 cx=550 cy=250 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_6"><circle class="node {% if not grid['node_1_6'] %}offline{% endif %}" id=node_1_6 cx=500 cy=250 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_7"><circle class="node {% if not grid['node_1_7'] %}offline{% endif %}" id=node_1_7 cx=500 cy=300 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_8"><circle class="node {% if not grid['node_1_8'] %}offline{% endif %}" id=node_1_8 cx=350 cy=300 r=20></circle></a>
+  <a xlink:href="/api/toggle?id=node_1_9"><circle class="node {% if not grid['node_1_9'] %}offline{% endif %}" id=node_1_9 cx=350 cy=250 r=20></circle></a>
+</svg>
+{% endblock %}

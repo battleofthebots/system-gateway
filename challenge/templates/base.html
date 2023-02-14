@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+  <title>{% block title %}{% endblock %} - System Gateway</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+  <nav>
+    <div class="title">System Gateway</div>
+    {% if user %}
+      <div class="item">{{ user.user }}</div>
+      <div class="item">
+        <a href="{{ url_for('logout') }}">Log Out</a>
+      </div>
+    {% else %}
+    <div class="item">
+      <a href="{{ url_for('login') }}">Log In</a>
+    </div>
+    {% endif %}
+  </nav>
+
+  <section class="content">
+    <div>
+      <header>
+        {% block header %}{% endblock %}
+      </header>
+      {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message.err }}</div>
+      {% endfor %}
+      {% block content %}{% endblock %}
+    </div>
+
+  </section>
+</body>
+
+

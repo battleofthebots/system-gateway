@@ -6,9 +6,9 @@ RUN apt update && \
     mkdir /flags/ && chmod 777 /flags
 
 WORKDIR /opt
-COPY challenge/requirements.txt .
+COPY . ./
+
 RUN pip install -r requirements.txt
 
-COPY challenge/ ./
-RUN mv system_gateway.py system_gateway && mv gateway_admin.py gateway_admin
+# Generate accounts for this instance
 CMD bash entrypoint.sh

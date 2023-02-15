@@ -5,18 +5,27 @@ import waitress
 import random
 import os
 import base64
+import uuid
+import socket
 import sys
 import logging
 import subprocess
 
+from collections import defaultdict
 from datetime import date
 from flask import Flask, request, render_template, redirect, url_for, flash, Response
 from werkzeug.security import check_password_hash, generate_password_hash
 
+def serial_number() -> str:
+    b = hashlib.md5(socket.gethostname().encode()).digest()
+    return str(uuid.UUID(bytes=b))
+
+SERIAL_NUMBER = serial_number()
 LOG_FILE = os.getenv("LOG_FILE", "system_gateway.log")
 HTTP_HOST = os.getenv("HTTP_HOST", "0.0.0.0")
-HTTP_PORT = int(os.getenv("HTTP_PORT", 5000))
-SERIAL_NUMBER = os.getenv("SERIAL_NUMBER", "0000-000-0000")
+HTTP_PORT = int(os.getenv("HTTP_PORT", 80))
+
+FAILED_LOGIN_COUNT = defaultdict(int)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -107,6 +116,9 @@ def log_request(r: Response):
     remote = request.remote_addr
     if s and s.user:
         remote += " " + s.user
+    elif request.form.get("username"):
+        remote += " " + request.form.get("username")
+    
     logging.log(logging.INFO, "%s %s %s - %i", request.method, request.url, remote, r.status_code)
     return r
 
@@ -153,16 +165,21 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+        global FAILED_LOGIN_COUNT
+        # Brute force protection
+        if username and FAILED_LOGIN_COUNT.get(username, 0) >= 5:
+            logging.warning("User %s has been banned", username)
+            return render_template('login.html'), 403
+        
         passwordHash = users.get(username, None)
-        error = None
         if passwordHash is None or not check_password_hash(passwordHash, password):
+            FAILED_LOGIN_COUNT[username] += 1
             return render_template('login.html'), 401
-
-        if error is None:
-            sess = new_session(username)
-            resp = redirect(url_for('index'))
-            resp.set_cookie("auth_token", sess)
-            return resp
+        
+        sess = new_session(username)
+        resp = redirect(url_for('index'))
+        resp.set_cookie("auth_token", sess)
+        return resp
     return render_template('login.html')
 
 def ping(cmd):
@@ -215,5 +232,4 @@ if __name__ == '__main__':
             user, pwd = line.split(" ")
             users[user] = pwd
     logging.log(logging.INFO, "Loaded %i users from local 'shadow' file", len(users))
-    users["bob"] = generate_password_hash("password")
     waitress.serve(app, host=HTTP_HOST, port=HTTP_PORT)

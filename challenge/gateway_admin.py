@@ -1,9 +1,17 @@
 from werkzeug.security import generate_password_hash
 import os
+import uuid
+import string
 import hashlib
 import random
-import string
+import socket
 
+
+def serial_number() -> str:
+    b = hashlib.md5(socket.gethostname().encode()).digest()
+    return str(uuid.UUID(bytes=b))
+
+SERIAL_NUMBER = serial_number()
 users = {}
 
 def load_users(fil) -> dict:
@@ -27,12 +35,10 @@ def del_user(username):
         del users[username]
 
 def add_admin_user():
-    SERIAL_NUMBER = os.getenv("SERIAL_NUMBER", "0000-000-0000")
-
     # Generate the admin password
     sn_bytes = SERIAL_NUMBER.encode("utf-8")
     password = hashlib.sha1(sn_bytes).hexdigest().upper()[:10]
-    print(f"admin password is {password}")
+    print(f"admin {password}")
     global users
     users["admin"] = generate_password_hash(password)
 
@@ -42,6 +48,8 @@ def dump():
             f.write(f"{u} {p}\n")
 
 def main():
+    print("System Serial Number:", SERIAL_NUMBER)
+    print("Creating default users:")
     add_admin_user()
     global users
     for i in ["bob", "alice", "eve", "dandy"]:

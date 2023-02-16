@@ -86,19 +86,29 @@ class Grid(object):
         return res
             
 class Session(object):
-    def __init__(self, username):
+    def __init__(self, username, **kwargs):
+        self.user = username
+        self.description = ""
         timeHex = hex(int(time.time()))[2:]
         rand = hex(int(random.randint(0, 1000000)))[2:]
         rand = timeHex + username.encode('utf-8').hex() + rand
-        self.user = username
         m = hashlib.md5(rand.encode("utf-8"))
         self.token = timeHex + "-" + m.digest().hex()
         self.login = time.time()
         self.expires = time.time() + 60*60 # 1 hour
+        self.__dict__.update(kwargs)
     
     def isExpired(self):
         return time.time() > self.expires
     
+    def json(self):
+        return {
+            "user": self.user,
+            "token": self.token,
+            "expires": self.expires,
+            "login": self.login,
+            "description": self.description
+        }
     def __repr__(self):
         return f"{self.user}: {self.token}"
 
@@ -136,10 +146,13 @@ def get_session() -> Session:
         if not session:
             return None
         mySess = pickle.loads(base64.b64decode(session))
-        sess = sessions.get(mySess.token, None)
-        if not sess or sess.isExpired():
+        if mySess.token not in sessions:
             return None
-        return sess
+        if mySess.user != sessions[mySess.token].user:
+            return None
+        if mySess.isExpired():
+            return None
+        return mySess
     except Exception as E:
         print(E)
         return None

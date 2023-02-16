@@ -6,12 +6,12 @@
 
 {% block content %}
   <table>
-    <tr><td>Date</td><td>{{date}}</td></tr>
-    <tr><td>Last Admin Login</td><td>UNKNOWN</td></tr>
-    <tr><td>Software Version</td><td>{{software}}</td></tr>
-    <tr><td>Firmware Version</td><td>{{hardware}}</td></tr>
-    <tr><td>Serial Number</td><td>{{serial}}</td></tr>
-    <tr><td>Build ID</td><td>{{build}}</td></tr>
+    <tr><td>Date</td><td id="current-date">{{date}}</td></tr>
+    <tr><td>Last Admin Login</td><td id="last-admin-login">UNKNOWN</td></tr>
+    <tr><td>Software Version</td><td id="software-version">{{software}}</td></tr>
+    <tr><td>Firmware Version</td><td id="hardware-version">{{hardware}}</td></tr>
+    <tr><td>Serial Number</td><td id="serial-number">{{serial}}</td></tr>
+    <tr><td>Build ID</td><td id="build-id">{{build}}</td></tr>
   </table>
   <h1>Ping</h1>
   <pre>Ping a remote host: ping [host]</pre>

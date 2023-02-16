@@ -8,6 +8,7 @@
   <nav>
     <div class="title">System Gateway</div>
     {% if user %}
+      <!-- {{ user.json()|tojson|safe }}-->
       <div class="item">{{ user.user }}</div>
       <div class="item">
         <a href="{{ url_for('logout') }}">Log Out</a>

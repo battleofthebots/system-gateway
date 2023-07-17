@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: BuildNSync
+name: release
 
 # Controls when the workflow will run
 on:
@@ -33,3 +33,24 @@ jobs:
       
       - name: Save release
         run: aws s3 cp system_gateway_release.zip s3://challenge-binaries/system-gateway/
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: Release zip for competitors
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: system_gateway_release.zip
+          asset_name: system_gateway.zip
+          asset_content_type: application/zip

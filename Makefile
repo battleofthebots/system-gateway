@@ -5,7 +5,7 @@ release: clean
 	$(PYTHON_CMD) -m compileall src/*.py
 	cp src/__pycache__/gateway_admin* gateway_admin
 	cp src/__pycache__/system_gateway* system_gateway
-	zip -r ../system_gateway.zip static templates requirements.txt system_gateway gateway_admin Dockerfile
+	zip -r system_gateway.zip static templates requirements.txt system_gateway gateway_admin Dockerfile
 
 clean:
 	rm -fr build/

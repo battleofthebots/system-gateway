@@ -2,3 +2,4 @@ __pycache__
 build/
 shadow
 system_gateway.log
+.venv

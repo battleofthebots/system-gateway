@@ -1,7 +1,6 @@
 import time
 import pickle
 import hashlib
-import waitress
 import random
 import os
 import base64
@@ -14,7 +13,7 @@ import subprocess
 from collections import defaultdict
 from datetime import date
 from flask import Flask, request, render_template, redirect, url_for, flash, Response
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 
 def serial_number() -> str:
     b = hashlib.md5(socket.gethostname().encode()).digest()
@@ -245,4 +244,4 @@ if __name__ == '__main__':
             user, pwd = line.split(" ")
             users[user] = pwd
     logging.log(logging.INFO, "Loaded %i users from local 'shadow' file", len(users))
-    waitress.serve(app, host=HTTP_HOST, port=HTTP_PORT)
+    app.run(host=HTTP_HOST, port=HTTP_PORT, debug=True)

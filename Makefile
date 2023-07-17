@@ -1,15 +1,11 @@
 # Make a zipfile that will be released for competitors
-PREFIX_DIR := challenge
 PYTHON_CMD := python3.8
 
 release: clean
-	$(PYTHON_CMD) -m compileall $(PREFIX_DIR)/*.py
-	mkdir -p build
-	cp $(PREFIX_DIR)/__pycache__/gateway_admin* build/gateway_admin
-	cp $(PREFIX_DIR)/__pycache__/system_gateway* build/system_gateway
-	cp release.Dockerfile build/Dockerfile
-	cp -r $(PREFIX_DIR)/static $(PREFIX_DIR)/templates $(PREFIX_DIR)/requirements.txt $(PREFIX_DIR)/entrypoint.sh build/
-	cd build && zip -r ../system_gateway_release.zip *
+	$(PYTHON_CMD) -m compileall src/*.py
+	cp src/__pycache__/gateway_admin* gateway_admin
+	cp src/__pycache__/system_gateway* system_gateway
+	zip -r ../system_gateway_release.zip static templates requirements.txt system_gateway gateway_admin Dockerfile
 
 clean:
 	rm -fr build/

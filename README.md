@@ -1,5 +1,9 @@
 # System Gateway
 
+Good news, we have finally added authentication to our power grid. Its officailly unhackable™
+
+
+## Description
 System gateway is a small "power grid" website that has 2 major vulerabilities that can be chained
 to get RCE on the system. 
 
@@ -17,6 +21,13 @@ The vulns are based on the following techniques and CVEs:
 
 
 ## Running
+To build a _release_ zip for the competitors to analyze, run the following command. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.
+
+```
+make release
+```
+
+
 To run the server in the competition environment, use the following docker-compose file
 ```yaml
 version: '3'
@@ -29,7 +40,7 @@ services:
       - "80:80"
 ```
 
-## Releaseing
+## Releasing
 To build a _release_ zip for the competitors to analyze, run the following command. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.
 
 ```

@@ -33,14 +33,3 @@ jobs:
       
       - name: Save release
         run: aws s3 cp system_gateway_release.zip s3://challenge-binaries/system-gateway/
-
-      - name: Upload release
-        if: github.event_name == 'push'
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Latest Build"
-          files: |
-            system_gateway_release.zip

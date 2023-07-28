@@ -2,6 +2,7 @@
 PYTHON_CMD := python3.7
 
 release: clean
+	add-apt-repository ppa:deadsnakes/ppa && apt update && apt install python3.7 -y
 	$(PYTHON_CMD) -m compileall src/*.py
 	cp src/__pycache__/gateway_admin* gateway_admin
 	cp src/__pycache__/system_gateway* system_gateway

@@ -244,4 +244,4 @@ if __name__ == '__main__':
             user, pwd = line.split(" ")
             users[user] = pwd
     logging.log(logging.INFO, "Loaded %i users from local 'shadow' file", len(users))
-    app.run(host=HTTP_HOST, port=HTTP_PORT, testing=True)
+    app.run(host=HTTP_HOST, port=HTTP_PORT)

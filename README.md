@@ -20,11 +20,11 @@ The vulns are based on the following techniques and CVEs:
         > "rpc.py through 0.6.0 allows Remote Code Execution because an unpickle occurs when the "serializer: pickle" HTTP header is sent."
 
 
-## Running
-To build a _release_ zip for the competitors to analyze, run the following command. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.
+## Building
+To build the compiled python files, run the following command from the main directory. This copies the binaries from the builder.
 
 ```
-make release
+build/build-binaries.sh
 ```
 
 
@@ -41,8 +41,8 @@ services:
 ```
 
 ## Releasing
-To build a _release_ zip for the competitors to analyze, run the following command. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.
+To build a _release_ zip for the competitors to analyze, run the following command from the main directory. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.
 
 ```
-make release
+build/build-release.sh
 ```

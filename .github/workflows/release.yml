@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build release
-        run: make release
+        run: build/build-release.sh
 
       - name: Save release
         run: aws s3 cp system_gateway.zip s3://challenge-binaries/system-gateway/
@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build release file
-        run: make release
+        run: build/build-binaries.sh
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf

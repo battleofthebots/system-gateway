@@ -1,5 +1,5 @@
 # Make a zipfile that will be released for competitors
-PYTHON_CMD := python3.8
+PYTHON_CMD := python3.7
 
 release: clean
 	$(PYTHON_CMD) -m compileall src/*.py

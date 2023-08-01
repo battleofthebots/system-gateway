@@ -109,3 +109,14 @@ jobs:
           docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest $ACCOUNT.dkr.ecr.$REGION.amazonaws.com/battleofthebots:`basename ${{ env.IMAGE_NAME }}`;
 
           docker push $ACCOUNT.dkr.ecr.$REGION.amazonaws.com/battleofthebots:`basename ${{ env.IMAGE_NAME }}`
+
+  s3-copy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+
+      - name: Copy files to S3
+        run: |
+          aws s3 cp system-gateway.pcap s3://challenge-binaries-static/system-gateway/

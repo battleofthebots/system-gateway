@@ -1,0 +1,8 @@
+version: '3'
+services:
+  system-gateway:
+    build: .
+    user: user
+    restart: always
+    ports:
+      - "80:80"

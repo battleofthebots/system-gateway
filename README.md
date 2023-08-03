@@ -1,10 +1,10 @@
 # System Gateway
 
-Good news, we have finally added authentication to our power grid. Its officailly unhackable™
+Good news, we have finally added authentication to our power grid. Its officially unhackable™
 
 
 ## Description
-System gateway is a small "power grid" website that has 2 major vulerabilities that can be chained
+System gateway is a small "power grid" website that has 2 major vulnerabilities that can be chained
 to get RCE on the system. 
 
 The vulns are based on the following techniques and CVEs:
@@ -28,7 +28,8 @@ build/build-binaries.sh
 ```
 
 
-To run the server in the competition environment, use the following docker-compose file
+To run the server in the competition environment, use the following docker-compose file:
+
 ```yaml
 version: '3'
 services:
@@ -39,6 +40,16 @@ services:
     ports:
       - "80:80"
 ```
+
+> **Note**
+> A local copy can also be run with the `docker-compose.yml` located in the directory by running `docker-compose up --build`
+
+## Solve Script
+
+To check for a solve run `python3 check/exploit.py`.
+
+> **NOTE**
+> There is a hardcoded port value of `80` in the script to match the Dockerfile, but if the solution is being run on a different port this will have to be changed.
 
 ## Releasing
 To build a _release_ zip for the competitors to analyze, run the following command from the main directory. This release zip has everything the competitors need to run the server themselves and uses the "compiled" python instead of source code.

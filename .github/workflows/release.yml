@@ -116,7 +116,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Runs a single command using the runners shell
+      - name: Rename and tar up PCAP
+        run: |
+          mv successful_capture.pcapng system-gateway.pcapng && tar -czvf system-gateway.tar.gz  system-gateway.pcapng
 
       - name: Copy files to S3
         run: |
-          aws s3 cp system-gateway.pcap s3://challenge-binaries-static/system-gateway/
+          aws s3 cp system-gateway.tar.gz s3://challenge-binaries-static/system-gateway/

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Debug{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <table>
+    <tr><td>Date</td><td id="current-date">{{date}}</td></tr>
+    <tr><td>Last Admin Login</td><td id="last-admin-login">UNKNOWN</td></tr>
+    <tr><td>Software Version</td><td id="software-version">{{software}}</td></tr>
+    <tr><td>Firmware Version</td><td id="hardware-version">{{hardware}}</td></tr>
+    <tr><td>Serial Number</td><td id="serial-number">{{serial}}</td></tr>
+    <tr><td>Build ID</td><td id="build-id">{{build}}</td></tr>
+  </table>
+  <h1>Ping</h1>
+  <pre>Ping a remote host: ping [host]</pre>
+  <form action="/debug" method="GET">
+    <input required pattern="ping\s+[a-zA-Z0-9\.]+" name="cmd" type="text"><input type="submit" value="Execute Command">
+  </form>
+
+  <pre id="ping">{{ping}}</pre>
+<h1>System Logs</h1>
+  <pre id="logs">{{logs}}</pre>
+{% endblock %}
